@@ -1,47 +1,49 @@
 <?xml version="1.0"?>
 <ruleset name="WordPress Coding Standards">
-    <description>WordPress Coding Standards</description>
+	<description>WordPress Coding Standards</description>
 
-    <arg name="extensions" value="php"/>
-    <exclude-pattern>*/node_modules/*</exclude-pattern>
-    <exclude-pattern>*/vendor/*</exclude-pattern>
+	<arg name="extensions" value="php"/>
+	<exclude-pattern>*/tests/*</exclude-pattern>
+	<exclude-pattern>*/node_modules/*</exclude-pattern>
+	<exclude-pattern>*/vendor/*</exclude-pattern>
 
-    <arg value="snp"/>
+	<arg value="snp"/>
 
-    <config name="minimum_supported_wp_version" value="5.0.0" />
-    <config name="testVersion" value="7.3-"/>
+	<config name="minimum_supported_wp_version" value="5.0.0" />
+	<config name="testVersion" value="7.3-"/>
 
-    <rule ref="PHPCompatibilityWP"/>
-    <rule ref="WordPress">
-        <exclude-pattern>*/js/*</exclude-pattern>
-        <exclude name="Generic.Commenting" />
-        <exclude name="Generic.PHP.DisallowShortOpenTag.EchoFound" />
-        <exclude name="Generic.WhiteSpace.DisallowSpaceIndent.SpacesUsed" />
-        <exclude name="PEAR.Functions.FunctionCallSignature.CloseBracketLine" />
-        <exclude name="PEAR.Functions.FunctionCallSignature.ContentAfterOpenBracket" />
-        <exclude name="PEAR.Functions.FunctionCallSignature.MultipleArguments" />
-        <exclude name="PEAR.Functions.FunctionCallSignature.OpeningIndent" />
-        <exclude name="Squiz.Commenting" />
-        <exclude name="Squiz.WhiteSpace.SuperfluousWhitespace.EndLine" />
-        <exclude name="WordPress.Files.FileName.InvalidClassFileName" />
-        <exclude name="WordPress.Files.FileName.NotHyphenatedLowercase" />
-        <exclude name="WordPress.NamingConventions.ValidFunctionName.MethodNameInvalid" />
-        <exclude name="WordPress.NamingConventions.ValidHookName.UseUnderscores" />
-        <exclude name="WordPress.Variables.GlobalVariables.OverrideProhibited" />
-    </rule>
+	<rule ref="PHPCompatibilityWP"/>
+	<rule ref="WordPress">
+		<exclude-pattern>*/js/*</exclude-pattern>
+		<exclude name="Generic.Commenting" />
+		<exclude name="Generic.PHP.DisallowShortOpenTag.EchoFound" />
+		<exclude name="Generic.WhiteSpace.DisallowSpaceIndent.SpacesUsed" />
+		<exclude name="PEAR.Functions.FunctionCallSignature.CloseBracketLine" />
+		<exclude name="PEAR.Functions.FunctionCallSignature.ContentAfterOpenBracket" />
+		<exclude name="PEAR.Functions.FunctionCallSignature.MultipleArguments" />
+		<exclude name="PEAR.Functions.FunctionCallSignature.OpeningIndent" />
+		<exclude name="Squiz.Commenting" />
+		<exclude name="Squiz.WhiteSpace.SuperfluousWhitespace.EndLine" />
+		<exclude name="WordPress.Files.FileName.InvalidClassFileName" />
+		<exclude name="WordPress.Files.FileName.NotHyphenatedLowercase" />
+		<exclude name="WordPress.NamingConventions.ValidFunctionName.MethodNameInvalid" />
+		<exclude name="WordPress.NamingConventions.ValidHookName.UseUnderscores" />
+		<exclude name="WordPress.Variables.GlobalVariables.OverrideProhibited" />
+		<exclude name="WordPress.PHP.YodaConditions" />
+	</rule>
 
-    <!-- wp_verify_nonce() handles casting on it's own and does not need extra overhead -->
-    <rule ref="WordPress.Security.ValidatedSanitizedInput">
-        <properties>
-            <property name="customUnslashingSanitizingFunctions" type="array">
-                <element value="wp_verify_nonce"/>
-            </property>
-        </properties>
-    </rule>
+	<!-- wp_verify_nonce() handles casting on it's own and does not need extra overhead -->
+	<rule ref="WordPress.Security.ValidatedSanitizedInput">
+		<properties>
+			<property name="customUnslashingSanitizingFunctions" type="array">
+				<element value="wp_verify_nonce"/>
+			</property>
+		</properties>
+	</rule>
 
-    <rule ref="WordPress.WP.I18n">
-        <properties>
-            <property name="text_domain" type="array" value="sample-namespace" />
-        </properties>
-    </rule>
+	<rule ref="WordPress.WP.I18n">
+		<properties>
+			<property name="text_domain" type="array" value="aws-sns-woocommerce" />
+		</properties>
+	</rule>
 </ruleset>
