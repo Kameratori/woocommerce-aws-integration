@@ -1,0 +1,28 @@
+version: "3"
+
+services:
+  wordpress:
+    build:
+      context: .
+    image: wordpress-woocommerce-test
+    volumes:
+      - .:/var/www/html/wp-content/plugins/aws-sns-woocommerce
+    ports:
+      - 8888:80
+    depends_on:
+      - mysql
+
+  mysql:
+    image: mysql:5.7
+    volumes:
+      - mysqldata:/var/lib/mysql
+    ports:
+      - 3306
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: wordpress
+      MYSQL_USER: wordpress
+      MYSQL_PASSWORD: password
+
+volumes:
+  mysqldata: {}
