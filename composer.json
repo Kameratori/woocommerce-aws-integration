@@ -19,7 +19,8 @@
 		"phpcompatibility/phpcompatibility-wp": "*"
 	},
 	"scripts": {
-		"lint": "./vendor/bin/phpcs ./",
-		"test": "docker-compose exec -T wordpress codecept run"
+		"lint": "vendor/bin/phpcs ./",
+		"dev": "./docker-setup.sh",
+		"test": "./docker-test.sh"
 	}
 }

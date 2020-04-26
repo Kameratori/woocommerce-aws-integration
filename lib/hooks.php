@@ -26,23 +26,19 @@ class Hooks {
 			return;
 		}
 		
-		// var_dump( $post );
-		// wp_die( 'product_created' );
+		// todo
 	}
 
 	public function order_paid( $order_id, $order ) {
-		// var_dump( $order );
-		// wp_die( 'order paid' );
+		// todo
 	}
 
 	public function order_completed( $order_id, $order ) {
-		// var_dump( $order );
-		// wp_die( 'order completed' );
+		// todo
 	}
 
 	public function order_refunded( $order_id, $order ) {
-		// var_dump( $order );
-		// wp_die( 'order refunded' );
+		// todo
 	}
 
 	private function get_option( $opt ) {
