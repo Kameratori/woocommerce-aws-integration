@@ -31,6 +31,7 @@ docker-compose exec -T wordpress wp wc tool run install_pages --user=1
 
 echo "Skipping WooCommerce onboarding..."
 docker-compose exec -T wordpress wp option set woocommerce_setup_ab_wc_admin_onboarding '{ "a": "completed" }' --format=json
+docker-compose exec -T wordpress wp transient delete-all
 
 echo "Activating plugin..."
 docker-compose exec -T wordpress wp plugin activate aws-sns-woocommerce

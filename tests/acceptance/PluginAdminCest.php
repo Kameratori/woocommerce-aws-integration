@@ -6,11 +6,12 @@ class PluginAdminCest
 		{
 		}
 
-		public function plugin_shouldBeActivated(AcceptanceTester $I)
+		public function shouldBeActivated(AcceptanceTester $I)
 		{
 			// given
 			$plugin_slug = 'aws-sns-producer-for-woocommerce';
 			$I->loginAsAdmin();
+			$I->amOnAdminPage('/');
 
 			// when
 			$I->amOnPluginsPage();
@@ -20,13 +21,14 @@ class PluginAdminCest
 			$I->seePluginActivated( $plugin_slug );
 		}
 
-		public function plugin_shouldCreateWoocommerceSettingsIntegrationTab(AcceptanceTester $I)
+		public function shouldCreateWoocommerceSettingsIntegrationTab(AcceptanceTester $I)
 		{
 			// given
 			$I->loginAsAdmin();
-			$I->amOnAdminPage('/admin.php?page=wc-settings&tab=integration');
+			$I->amOnAdminPage('/');
 
 			// when
+			$I->amOnAdminPage('/admin.php?page=wc-settings&tab=integration');
 			$I->click('AWS SNS Topics');
 
 			// then
