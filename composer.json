@@ -1,0 +1,13 @@
+{
+    "name": "toriverkosto/aws-sns-woocommerce",
+    "description": "AWS SNS Producer for WooCommerce",
+    "type": "wordpress-plugin",
+    "license": "GPLv3",
+    "authors": [
+        {
+            "name": "Viljami Kuosmanen",
+            "email": "viljami@toriverkosto.fi"
+        }
+    ],
+    "require": {}
+}

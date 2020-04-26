@@ -1,0 +1,21 @@
+{
+  "name": "aws-sns-woocommerce",
+  "version": "0.0.1",
+  "description": "AWS SNS Producer for WooCommerce",
+  "private": true,
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Toriverkosto/aws-sns-woocommerce.git"
+  },
+  "keywords": [],
+  "author": "Viljami Kuosmanen <viljami@toriverkosto.fi>",
+  "license": "GPLv3",
+  "bugs": {
+    "url": "https://github.com/Toriverkosto/aws-sns-woocommerce/issues"
+  },
+  "homepage": "https://github.com/Toriverkosto/aws-sns-woocommerce#readme"
+}
