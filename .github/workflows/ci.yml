@@ -13,3 +13,8 @@ jobs:
       - run: composer run lint
       - run: composer run dev
       - run: composer run test
+      - uses: actions/upload-artifact@v1
+        if: failure()
+        with:
+          name: Test Output
+          path: tests/_output
