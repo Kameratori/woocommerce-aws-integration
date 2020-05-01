@@ -23,6 +23,6 @@
 		"lint": "vendor/bin/phpcs ./",
 		"dev": "./docker-setup.sh",
 		"test": "./docker-test.sh",
-		"package": "zip -r aws-sns-woocommerce.zip ."
+		"package": "composer install --no-dev && zip -r aws-sns-woocommerce.zip . -x '*.git*'"
 	}
 }

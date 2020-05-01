@@ -27,9 +27,6 @@ jobs:
     steps:
       - uses: actions/checkout@v1
       - uses: php-actions/composer@v1
-        with:
-          command: install --no-dev
-      - run: rm -rf .git/
       - run: composer run package
       - name: Create new release
         uses: fnkr/github-action-ghr@v1.3
