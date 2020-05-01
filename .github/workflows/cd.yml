@@ -1,0 +1,33 @@
+name: CD
+on:
+  push:
+    tags: ["*"]
+
+jobs:
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - uses: php-actions/composer@v1
+      - run: composer run lint
+      - run: ${{ matrix.TEST_VERSION }} composer run dev
+      - run: composer run test
+      - uses: actions/upload-artifact@v1
+        if: failure()
+        with:
+          name: Test Output
+          path: tests/_output
+
+  release:
+    name: Release
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - uses: php-actions/composer@v1
+      - name: Create new release
+        uses: fnkr/github-action-ghr@v1.3
+        env:
+          GHR_PATH: .
+          GHR_COMPRESS: zip
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
