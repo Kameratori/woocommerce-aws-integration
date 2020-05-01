@@ -33,14 +33,18 @@ class Hooks {
 	}
 
 	public function publish( $topic, $event, $data ) {
-		$data  = apply_filters( 'sns_publish_event_' . $event . '_data', $data, $event, $topic );
-		$topic = apply_filters( 'sns_publish_event_' . $event . '_topic', $topic, $event, $data );
+		$payload = array(
+			'event' => $event,
+			'data'  => $data,
+		);
+		$payload = apply_filters( 'sns_publish_event_' . $event, $payload, $topic, $event );
+		$payload = apply_filters( 'sns_publish_event', $payload, $topic, $event );
+
+		$topic = apply_filters( 'sns_publish_event_topic', $topic, $event, $payload );
+		$topic = apply_filters( 'sns_publish_event_' . $event . '_topic', $topic, $event, $payload );
 
 		$this->client->publish(array(
-			'Message'  => wp_json_encode(array( 
-				'event' => $event,
-				'data'  => $data,
-			)),
+			'Message'  => wp_json_encode( $payload ),
 			'TopicArn' => $topic,
 		));
 	}
