@@ -9,9 +9,12 @@ class Plugin {
 		if ( class_exists( '\WC_Integration' ) ) {
 			include_once 'settings.php';
 			include_once 'hooks.php';
-			Settings::instance();
-			Hooks::instance();
+
+			$settings = Settings::instance();
+			$hooks    = Hooks::instance();
+
 			add_filter( 'woocommerce_integrations', array( $this, 'add_integration' ) );
+			do_action( 'aws_sns_woocommerce_initialized', $hooks, $settings );
 		}
 	}
 
