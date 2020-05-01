@@ -13,7 +13,7 @@ RUN apt-get update && apt-get install -y \
 	libpng-dev \
 	libsodium-dev
 
-RUN pecl install pcov && docker-php-ext-enable pcov
+RUN pecl install pcov libsodium && docker-php-ext-enable pcov sodium
 
 # install php extensions
 RUN docker-php-ext-install \
@@ -21,8 +21,7 @@ RUN docker-php-ext-install \
 	pdo \
 	pdo_mysql \
 	mysqli \
-	gd \
-	sodium
+	gd
 
 # install wp-cli
 RUN \
