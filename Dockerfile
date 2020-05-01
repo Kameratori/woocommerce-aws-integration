@@ -13,6 +13,8 @@ RUN apt-get update && apt-get install -y \
 	libpng-dev \
 	libsodium-dev
 
+RUN pecl install xdebug-2.8.1
+
 # install php extensions
 RUN docker-php-ext-install \
 	zip \
@@ -20,7 +22,7 @@ RUN docker-php-ext-install \
 	pdo_mysql \
 	mysqli \
 	gd \
-	sodium 
+	sodium
 
 # install wp-cli
 RUN \
@@ -47,6 +49,7 @@ RUN composer require --dev \
 	codeception/module-db \
 	codeception/module-phpbrowser \
 	codeception/module-webdriver \
+	codeception/mockery-module \
 	codeception/module-cli \
 	codeception/util-universalframework
 
