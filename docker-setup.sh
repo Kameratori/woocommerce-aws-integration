@@ -36,10 +36,10 @@ docker-compose exec -T wordpress wp db create
 echo "Installing WordPress..."
 docker-compose exec -T wordpress wp core install --url=http://localhost:8888 --title=Test --admin_user=admin --admin_password=password --admin_email=admin@toriverkosto.fi --skip-email
 echo "Installing WooCommerce ${WC_VERSION:-latest}..."
-docker-compose exec -T wordpress wp plugin install --activate woocommerce $WC_VERSION_FLAG
+docker-compose exec -T wordpress wp plugin install --force --activate woocommerce $WC_VERSION_FLAG
 
 echo "Installing Storefront..."
-docker-compose exec -T wordpress wp theme install --activate storefront
+docker-compose exec -T wordpress wp theme install --force --activate storefront
 
 echo "Install WooCommerce pages..."
 docker-compose exec -T wordpress wp wc tool run install_pages --user=1
