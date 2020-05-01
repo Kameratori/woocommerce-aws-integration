@@ -29,9 +29,8 @@ class PluginAdminCest
 
 			// when
 			$I->amOnAdminPage('/admin.php?page=wc-settings&tab=integration');
-			$I->click('AWS SNS Integration');
 
 			// then
-			$I->see('Set up SNS Topics for WooCommerce events.');
+			$I->see('AWS SNS Integration');
 		}
 }
