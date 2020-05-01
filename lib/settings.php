@@ -2,13 +2,16 @@
 
 class Settings extends \WC_Integration {
 	public static $setting_constants = array(
-		'aws_access_key_id'     => 'AWS_ACCESS_KEY_ID',
-		'aws_secret_access_key' => 'AWS_SECRET_ACCESS_KEY',
-		'aws_region'            => 'AWS_REGION',
-		'topic_product_created' => 'TOPIC_PRODUCT_CREATED',
-		'topic_order_paid'      => 'TOPIC_ORDER_PAID',
-		'topic_order_shipped'   => 'TOPIC_ORDER_SHIPPED',
-		'topic_order_refunded'  => 'TOPIC_ORDER_REFUNDED',
+		'aws_access_key_id'       => 'AWS_ACCESS_KEY_ID',
+		'aws_secret_access_key'   => 'AWS_SECRET_ACCESS_KEY',
+		'aws_region'              => 'AWS_REGION',
+		'topic_order_paid'        => 'TOPIC_ORDER_PAID',
+		'topic_order_shipped'     => 'TOPIC_ORDER_SHIPPED',
+		'topic_order_refunded'    => 'TOPIC_ORDER_REFUNDED',
+		'topic_product_published' => 'TOPIC_PRODUCT_PUBLISHED',
+		'topic_product_sold'      => 'TOPIC_PRODUCT_SOLD',
+		'topic_product_shipped'   => 'TOPIC_PRODUCT_SHIPPED',
+		'topic_product_refunded'  => 'TOPIC_PRODUCT_REFUNDED',
 	);
 
 	public function __construct() {
@@ -24,15 +27,7 @@ class Settings extends \WC_Integration {
 
 	public function init_form_fields() {
 		$this->form_fields = array(
-			'topic_product_created' => array(
-				'title'             => self::$setting_constants['topic_product_created'],
-				'type'              => 'text',
-				'description'       => __( 'Topic to publish when a new product is created', 'aws-sns-woocommerce' ),
-				'desc_tip'          => true,
-				'placeholder'       => 'arn:aws:sns:us-east-1:1234:MyTopic',
-				'custom_attributes' => $this->readonly_if_defined( self::$setting_constants['topic_product_created'] ),
-			),
-			'topic_order_paid'      => array(
+			'topic_order_paid'       => array(
 				'title'             => self::$setting_constants['topic_order_paid'],
 				'type'              => 'text',
 				'description'       => __( 'Topic to publish when an order is paid', 'aws-sns-woocommerce' ),
@@ -40,7 +35,7 @@ class Settings extends \WC_Integration {
 				'placeholder'       => 'arn:aws:sns:us-east-1:1234:MyTopic',
 				'custom_attributes' => $this->readonly_if_defined( self::$setting_constants['topic_order_paid'] ),
 			),
-			'topic_order_shipped'   => array(
+			'topic_order_shipped'    => array(
 				'title'             => self::$setting_constants['topic_order_shipped'],
 				'type'              => 'text',
 				'description'       => __( 'Topic to publish when an order is shipped', 'aws-sns-woocommerce' ),
@@ -48,7 +43,7 @@ class Settings extends \WC_Integration {
 				'placeholder'       => 'arn:aws:sns:us-east-1:1234:MyTopic',
 				'custom_attributes' => $this->readonly_if_defined( self::$setting_constants['topic_order_shipped'] ),
 			),
-			'topic_order_refunded'  => array(
+			'topic_order_refunded'   => array(
 				'title'             => self::$setting_constants['topic_order_refunded'],
 				'type'              => 'text',
 				'description'       => __( 'Topic to publish when an order is refunded', 'aws-sns-woocommerce' ),
@@ -56,7 +51,40 @@ class Settings extends \WC_Integration {
 				'placeholder'       => 'arn:aws:sns:us-east-1:1234:MyTopic',
 				'custom_attributes' => $this->readonly_if_defined( self::$setting_constants['topic_order_refunded'] ),
 			),
-			'aws_access_key_id'     => array(
+			'topic_product_published'  => array(
+				'title'             => self::$setting_constants['topic_product_published'],
+				'type'              => 'text',
+				'description'       => __( 'Topic to publish when a new product is published', 'aws-sns-woocommerce' ),
+				'desc_tip'          => true,
+				'placeholder'       => 'arn:aws:sns:us-east-1:1234:MyTopic',
+				'custom_attributes' => $this->readonly_if_defined( self::$setting_constants['topic_product_published'] ),
+			),
+			'topic_product_sold'     => array(
+				'title'             => self::$setting_constants['topic_product_sold'],
+				'type'              => 'text',
+				'description'       => __( 'Topic to publish when a product is sold', 'aws-sns-woocommerce' ),
+				'desc_tip'          => true,
+				'placeholder'       => 'arn:aws:sns:us-east-1:1234:MyTopic',
+				'custom_attributes' => $this->readonly_if_defined( self::$setting_constants['topic_product_sold'] ),
+			),
+			'topic_product_shipped'  => array(
+				'title'             => self::$setting_constants['topic_product_shipped'],
+				'type'              => 'text',
+				'description'       => __( 'Topic to publish when a product is shipped', 'aws-sns-woocommerce' ),
+				'desc_tip'          => true,
+				'placeholder'       => 'arn:aws:sns:us-east-1:1234:MyTopic',
+				'custom_attributes' => $this->readonly_if_defined( self::$setting_constants['topic_product_shipped'] ),
+			),
+			'topic_product_refunded' => array(
+				'title'             => self::$setting_constants['topic_product_refunded'],
+				'type'              => 'text',
+				'description'       => __( 'Topic to publish when a product is refunded', 'aws-sns-woocommerce' ),
+				'desc_tip'          => true,
+				'placeholder'       => 'arn:aws:sns:us-east-1:1234:MyTopic',
+				'custom_attributes' => $this->readonly_if_defined( self::$setting_constants['topic_product_refunded'] ),
+			),
+
+			'aws_access_key_id'      => array(
 				'title'             => self::$setting_constants['aws_access_key_id'],
 				'type'              => 'text',
 				'description'       => __( 'IAM Access Key', 'aws-sns-woocommerce' ),
@@ -64,7 +92,7 @@ class Settings extends \WC_Integration {
 				'placeholder'       => 'AKIAVBCDEFGHIJKLMNOP',
 				'custom_attributes' => $this->readonly_if_defined( self::$setting_constants['aws_access_key_id'] ),
 			),
-			'aws_secret_access_key' => array(
+			'aws_secret_access_key'  => array(
 				'title'             => self::$setting_constants['aws_secret_access_key'],
 				'type'              => 'text',
 				'description'       => __( 'IAM Access Key Secret', 'aws-sns-woocommerce' ),
@@ -72,7 +100,7 @@ class Settings extends \WC_Integration {
 				'placeholder'       => '<secret key>',
 				'custom_attributes' => $this->readonly_if_defined( self::$setting_constants['aws_secret_access_key'] ),
 			),
-			'aws_region'            => array(
+			'aws_region'             => array(
 				'title'             => self::$setting_constants['aws_region'],
 				'type'              => 'text',
 				'description'       => __( 'AWS region for SNS topics', 'aws-sns-woocommerce' ),

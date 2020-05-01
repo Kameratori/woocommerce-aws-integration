@@ -41,8 +41,8 @@ class Hooks {
 			return;
 		}
 		
-		$event = 'product_created';
-		$topic = $this->get_setting( 'topic_product_created' );
+		$event = 'product_published';
+		$topic = $this->get_setting( 'topic_product_published' );
 		if ( $topic ) {
 			try {
 				$product = wc_get_product( $post->ID );
@@ -63,6 +63,22 @@ class Hooks {
 				error_log( $e );
 			}
 		}
+
+		// loop through products in order
+		$event = 'product_sold';
+		$topic = $this->get_setting( 'topic_product_sold' );
+		$items = $order->get_items( 'line_item' );
+		if ( $topic ) {
+			foreach ( $items as $item ) {
+				try {
+					$product = $item->get_product();
+					$data    = array_merge( $item->get_data(), $product->get_data() );
+					$this->publish( $topic, $event, $data );
+				} catch ( Exception $e ) {
+					error_log( $e );
+				}
+			}
+		}
 	}
 
 	public function order_shipped( $order_id, $order ) {
@@ -75,6 +91,22 @@ class Hooks {
 				error_log( $e );
 			}
 		}
+
+		// loop through products in order
+		$event = 'product_shipped';
+		$topic = $this->get_setting( 'topic_product_shipped' );
+		$items = $order->get_items( 'line_item' );
+		if ( $topic ) {
+			foreach ( $items as $item ) {
+				try {
+					$product = $item->get_product();
+					$data    = array_merge( $item->get_data(), $product->get_data() );
+					$this->publish( $topic, $event, $data );
+				} catch ( Exception $e ) {
+					error_log( $e );
+				}
+			}
+		}
 	}
 
 	public function order_refunded( $order_id, $order ) {
@@ -85,6 +117,22 @@ class Hooks {
 				$this->publish( $topic, $event, $order->get_data() );
 			} catch ( Exception $e ) {
 				error_log( $e );
+			}
+		}
+
+		// loop through products in order
+		$event = 'product_refunded';
+		$topic = $this->get_setting( 'topic_product_refunded' );
+		$items = $order->get_items( 'line_item' );
+		if ( $topic ) {
+			foreach ( $items as $item ) {
+				try {
+					$product = $item->get_product();
+					$data    = array_merge( $item->get_data(), $product->get_data() );
+					$this->publish( $topic, $event, $data );
+				} catch ( Exception $e ) {
+					error_log( $e );
+				}
 			}
 		}
 	}
