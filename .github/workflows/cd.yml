@@ -29,9 +29,7 @@ jobs:
       - uses: MilesChou/composer-action@master
         with:
           args: install --no-dev
-      - uses: MilesChou/composer-action@master
-        with:
-          args: run package
+      - run: zip -r aws-sns-woocommerce.zip . -x '*.git*'
       - name: Create new release
         uses: fnkr/github-action-ghr@v1.3
         env:
