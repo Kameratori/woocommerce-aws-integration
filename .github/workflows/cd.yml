@@ -26,9 +26,12 @@ jobs:
       - test
     steps:
       - uses: actions/checkout@v1
-      - uses: php-actions/composer@v1
-      - run: rm -fr vendor
-      - run: composer run package
+      - uses: MilesChou/composer-action@master
+        with:
+          args: install --no-dev
+      - uses: MilesChou/composer-action@master
+        with:
+          args: run package
       - name: Create new release
         uses: fnkr/github-action-ghr@v1.3
         env:
