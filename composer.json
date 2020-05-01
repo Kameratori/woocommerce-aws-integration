@@ -1,6 +1,7 @@
 {
 	"name": "toriverkosto/aws-sns-woocommerce",
 	"description": "AWS SNS Producer for WooCommerce",
+	"version": "1.0.0",
 	"type": "wordpress-plugin",
 	"license": "GPLv3",
 	"authors": [
