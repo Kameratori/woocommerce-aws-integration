@@ -6,7 +6,7 @@ Requires at least: 4.7
 Tested up to: 5.4
 Stable tag: 1.0.0
 License: GPLv3
-License URI: https://github.com/anttiviljami/wp-safe-updates/blob/master/LICENSE
+License URI: https://github.com/Toriverkosto/aws-sns-woocommerce/blob/master/LICENSE
 
 == Description ==
 
