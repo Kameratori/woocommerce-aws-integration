@@ -27,9 +27,9 @@ jobs:
     steps:
       - uses: actions/checkout@v1
       - uses: php-actions/composer@v1
+      - run: composer run package
       - name: Create new release
         uses: fnkr/github-action-ghr@v1.3
         env:
-          GHR_PATH: .
-          GHR_COMPRESS: zip
+          GHR_PATH: aws-sns-woocommerce.zip
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

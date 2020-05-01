@@ -22,6 +22,7 @@
 	"scripts": {
 		"lint": "vendor/bin/phpcs ./",
 		"dev": "./docker-setup.sh",
-		"test": "./docker-test.sh"
+		"test": "./docker-test.sh",
+		"package": "zip -r aws-sns-woocommerce.zip ."
 	}
 }

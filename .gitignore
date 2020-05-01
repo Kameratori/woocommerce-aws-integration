@@ -4,3 +4,4 @@ node_modules
 !.env.testing
 tests/_data
 tests/_output
+*.zip
