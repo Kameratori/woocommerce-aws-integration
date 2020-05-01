@@ -3,7 +3,7 @@
 [![CI](https://github.com/Toriverkosto/aws-sns-woocommerce/workflows/CI/badge.svg)](https://github.com/Toriverkosto/aws-sns-woocommerce/actions?query=workflow%3ACI)
 [![License](https://img.shields.io/:license-gpl3-blue.svg)](https://github.com/anttiviljami/wp-safe-updates/blob/master/LICENSE)
 
-A WordPress plugin to produce SNS events from WooCommerce hooks.
+WordPress plugin to produce SNS events from WooCommerce hooks
 
 You can configure this plugin to publish metadata from any SNS Topic triggered by the following WooCommerce events:
 

@@ -2,8 +2,8 @@
 /**
  * Plugin name: AWS SNS Producer for WooCommerce
  * Plugin URI: https://github.com/Toriverkosto/aws-sns-woocommerce
- * Description: A WordPress plugin to produce SNS events from WooCommerce hooks.
- * Version: 1.0.2
+ * Description: WordPress plugin to produce SNS events from WooCommerce hooks
+ * Version: 1.0.3
  * Author: @anttiviljami
  * Author: https://github.com/anttiviljami
  * License: GPLv3
