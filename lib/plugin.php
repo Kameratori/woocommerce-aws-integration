@@ -7,8 +7,10 @@ class Plugin {
 
 	public function init() {
 		if ( class_exists( '\WC_Integration' ) ) {
-			include_once 'hooks.php';
 			include_once 'settings.php';
+			include_once 'hooks.php';
+			Settings::instance();
+			Hooks::instance();
 			add_filter( 'woocommerce_integrations', array( $this, 'add_integration' ) );
 		}
 	}

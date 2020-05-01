@@ -30,6 +30,7 @@
 		<exclude name="WordPress.NamingConventions.ValidHookName.UseUnderscores" />
 		<exclude name="WordPress.Variables.GlobalVariables.OverrideProhibited" />
 		<exclude name="WordPress.PHP.YodaConditions" />
+		<exclude name="WordPress.PHP.DevelopmentFunctions.error_log" />
 	</rule>
 
 	<!-- wp_verify_nonce() handles casting on it's own and does not need extra overhead -->

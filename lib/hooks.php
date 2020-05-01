@@ -1,19 +1,34 @@
 <?php namespace AwsSnsWooCommerce;
 
+use Aws\Sns\SnsClient; 
+use AwsSnsWooCommerce\Settings;
+
 class Hooks {
 	public function __construct() {
-		global $woocommerce;
+		// load configuration
+		$this->settings = Settings::instance();
 
-		// load topics
-		$this->topic_product_created = $this->get_option( 'sns_topic_product_created' );
-		$this->topic_order_paid      = $this->get_option( 'sns_topic_order_paid' );
-		$this->topic_order_completed = $this->get_option( 'sns_topic_order_completed' );
-		$this->topic_order_refunded  = $this->get_option( 'sns_topic_order_refunded' );
+		// initialize SNS client
+		try {
+			$client_opts = array(
+				'version' => '2010-03-31',
+				'region'  => $this->get_setting( 'aws_region', 'us-east-1' ),
+			);
+			if ( $this->get_setting( 'aws_access_key_id' ) && $this->get_setting( 'aws_secret_access_key' ) ) {
+				$client_opts['credentials'] = array(
+					'key'    => $this->get_setting( 'aws_access_key_id' ),
+					'secret' => $this->get_setting( 'aws_secret_access_key' ),
+				);
+			}
+			$this->client = new SnsClient( $client_opts );
+		} catch ( Exception $e ) {
+			error_log( $e );
+		}
 
 		// hook into woocommerce business logic
 		add_action( 'transition_post_status', array( $this, 'maybe_product_published' ), 100, 3 );
 		add_action( 'woocommerce_order_status_processing', array( $this, 'order_paid' ), 100, 2 );
-		add_action( 'woocommerce_order_status_completed', array( $this, 'order_completed' ), 100, 2 );
+		add_action( 'woocommerce_order_status_completed', array( $this, 'order_shipped' ), 100, 2 );
 		add_action( 'woocommerce_order_status_refunded', array( $this, 'order_refunded' ), 100, 2 );
 	}
 
@@ -22,28 +37,80 @@ class Hooks {
 			return;
 		}
 
-		if ( $new_status !== 'publish' ) {
+		if ( $new_status !== 'publish' || $old_status === 'publish' ) {
 			return;
 		}
 		
-		// todo
+		$event = 'product_created';
+		$topic = $this->get_setting( 'topic_product_created' );
+		if ( $topic ) {
+			try {
+				$product = wc_get_product( $post->ID );
+				$this->publish( $topic, $event, $product->get_data() );
+			} catch ( Exception $e ) {
+				error_log( $e );
+			}
+		}
 	}
 
 	public function order_paid( $order_id, $order ) {
-		// todo
+		$event = 'order_paid';
+		$topic = $this->get_setting( 'topic_order_paid' );
+		if ( $topic ) {
+			try {
+				$this->publish( $topic, $event, $order->get_data() );
+			} catch ( Exception $e ) {
+				error_log( $e );
+			}
+		}
 	}
 
-	public function order_completed( $order_id, $order ) {
-		// todo
+	public function order_shipped( $order_id, $order ) {
+		$event = 'order_shipped';
+		$topic = $this->get_setting( 'topic_order_shipped' );
+		if ( $topic ) {
+			try {
+				$this->publish( $topic, $event, $order->get_data() );
+			} catch ( Exception $e ) {
+				error_log( $e );
+			}
+		}
 	}
 
 	public function order_refunded( $order_id, $order ) {
-		// todo
+		$event = 'order_refunded';
+		$topic = $this->get_setting( 'topic_order_refunded' );
+		if ( $topic ) {
+			try {
+				$this->publish( $topic, $event, $order->get_data() );
+			} catch ( Exception $e ) {
+				error_log( $e );
+			}
+		}
 	}
 
-	private function get_option( $opt ) {
-		return get_option( $opt );
+	// publish
+	private function publish( $topic, $event, $data ) {
+		$this->client->publish(array(
+			'Message'  => wp_json_encode(array( 
+				'event' => $event,
+				'data'  => $data,
+			)),
+			'TopicArn' => $topic,
+		));
+	}
+
+	// get setting value
+	private function get_setting( $key, $default = null ) {
+		return $this->settings->get_option( $key, $default );
+	}
+
+	// make singleton
+	private static $instance = null;
+	public static function instance() {
+		if ( self::$instance === null ) {
+			self::$instance = new Hooks();
+		}
+		return self::$instance;
 	}
 }
-
-new Hooks( __FILE__ );
