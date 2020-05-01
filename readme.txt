@@ -31,6 +31,12 @@ https://github.com/Toriverkosto/aws-sns-woocommerce
 
 == Installation ==
 
+Requirements:
+
+- WooCommerce >= 3.1
+- WordPress >= 4.7
+- PHP >= 7.1
+
 1. Install the latest version of this plugin and activate it.
 2. Navigate to WooCommerce > Settings > Integration > AWS SNS Integration
 3. Input the ARNs for the SNS topics you want to publish events on

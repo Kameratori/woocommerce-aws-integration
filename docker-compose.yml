@@ -4,6 +4,7 @@ services:
   wordpress:
     build:
       context: .
+      dockerfile: Dockerfile-php7.1
     image: wordpress-woocommerce-test
     volumes:
       - .:/var/www/html/wp-content/plugins/aws-sns-woocommerce

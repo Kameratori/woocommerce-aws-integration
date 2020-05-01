@@ -17,6 +17,12 @@ You can configure this plugin to publish metadata from any SNS Topic triggered b
 
 ## Installation
 
+Requirements:
+
+- WooCommerce >= 3.1
+- WordPress >= 4.7
+- PHP >= 7.1
+
 1. Download and install the [latest release](https://github.com/Toriverkosto/aws-sns-woocommerce/releases) of this plugin.
 
 1. Navigate to WooCommerce > Settings > Integration > AWS SNS Integration

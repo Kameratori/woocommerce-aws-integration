@@ -14,8 +14,8 @@ jobs:
           - Dockerfile-php7.1
         TEST_VERSION:
           - WP_VERSION=latest
-          - WP_VERSION=4.9 WC_VERSION=3.5.7
-          - WP_VERSION=4.7 WC_VERSION=3.0.9
+          - WP_VERSION=5.1 WC_VERSION=3.5.7
+          - WP_VERSION=4.7 WC_VERSION=3.1.2
     steps:
       - uses: actions/checkout@v1
       - uses: php-actions/composer@v1
