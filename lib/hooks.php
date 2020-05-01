@@ -32,6 +32,19 @@ class Hooks {
 		add_action( 'woocommerce_order_status_refunded', array( $this, 'order_refunded' ), 100, 2 );
 	}
 
+	public function publish( $topic, $event, $data ) {
+		$data  = apply_filters( 'sns_publish_event_' . $event . '_data', $data, $event, $topic );
+		$topic = apply_filters( 'sns_publish_event_' . $event . '_topic', $topic, $event, $data );
+
+		$this->client->publish(array(
+			'Message'  => wp_json_encode(array( 
+				'event' => $event,
+				'data'  => $data,
+			)),
+			'TopicArn' => $topic,
+		));
+	}
+
 	public function maybe_product_published( $new_status, $old_status, $post ) {
 		if ( $post->post_type !== 'product' ) {
 			return;
@@ -135,20 +148,6 @@ class Hooks {
 				}
 			}
 		}
-	}
-
-	// publish
-	private function publish( $topic, $event, $data ) {
-		$data  = apply_filters( 'sns_publish_event_' . $event . '_data', $data, $event, $topic );
-		$topic = apply_filters( 'sns_publish_event_' . $event . '_topic', $topic, $event, $data );
-
-		$this->client->publish(array(
-			'Message'  => wp_json_encode(array( 
-				'event' => $event,
-				'data'  => $data,
-			)),
-			'TopicArn' => $topic,
-		));
 	}
 
 	// get setting value
