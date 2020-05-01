@@ -13,7 +13,7 @@ RUN apt-get update && apt-get install -y \
 	libpng-dev \
 	libsodium-dev
 
-RUN pecl install xdebug-2.8.1
+RUN pecl install pcov && docker-php-ext-enable pcov
 
 # install php extensions
 RUN docker-php-ext-install \

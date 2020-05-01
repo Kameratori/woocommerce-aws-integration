@@ -16,5 +16,10 @@ extensions:
     - Codeception\Command\GenerateWPAjax
     - Codeception\Command\GenerateWPCanonical
     - Codeception\Command\GenerateWPXMLRPC
+coverage:
+  enabled: true
+  show_uncovered: true
+  include:
+    - wp-content/plugins/aws-sns-woocommerce/lib/*
 params:
   - .env.testing
