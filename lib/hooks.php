@@ -139,6 +139,9 @@ class Hooks {
 
 	// publish
 	private function publish( $topic, $event, $data ) {
+		$data  = apply_filters( 'sns_publish_event_' . $event . '_data', $data, $event, $topic );
+		$topic = apply_filters( 'sns_publish_event_' . $event . '_topic', $topic, $event, $data );
+
 		$this->client->publish(array(
 			'Message'  => wp_json_encode(array( 
 				'event' => $event,
