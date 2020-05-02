@@ -47,7 +47,7 @@ class S3Event implements IEvent {
 		$payload = array_merge(
 			array( 'event' => $event ),
 			array( 'timestamp' => $timestamp ),
-			$data,
+			$data
 		);
 
 		$payload = apply_filters( 's3_publish_event', $payload, $target, $event, $data, $timestamp );

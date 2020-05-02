@@ -42,7 +42,7 @@ class KinesisEventTest extends \Codeception\TestCase\WPTestCase
 			$data = wp_json_encode(array_merge(
 				[ 'event' => $event ],
 				[ 'timestamp' => $timestamp ],
-				$data,
+				$data
 			));
 			return $opts['StreamName'] === $stream && $opts['Data'] === $data;
 		}))->once();

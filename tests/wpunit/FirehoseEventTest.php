@@ -42,7 +42,7 @@ class FirehoseEventTest extends \Codeception\TestCase\WPTestCase
 			$data = wp_json_encode(array_merge(
 				[ 'event' => $event ],
 				[ 'timestamp' => $timestamp ],
-				$data,
+				$data
 			));
 			return $opts['DeliveryStreamName'] === $stream && $opts['Record']['Data'] === $data;
 		}))->once();

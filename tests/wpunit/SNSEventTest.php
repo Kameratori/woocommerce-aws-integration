@@ -41,7 +41,7 @@ class SNSEventTest extends \Codeception\TestCase\WPTestCase
 			$message = wp_json_encode(array_merge(
 				[ 'event' => $event ],
 				[ 'timestamp' => $timestamp ],
-				$data,
+				$data
 			));
 			return $opts['TopicArn'] === $target && $opts['Message'] === $message;
 		}))->once();

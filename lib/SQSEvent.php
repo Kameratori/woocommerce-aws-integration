@@ -47,7 +47,7 @@ class SQSEvent implements IEvent {
 		$payload = array_merge(
 			array( 'event' => $event ),
 			array( 'timestamp' => $timestamp ),
-			$data,
+			$data
 		);
 
 		$payload = apply_filters( 'sqs_publish_event', $payload, $target, $event, $data, $timestamp );
