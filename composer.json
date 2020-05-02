@@ -1,7 +1,7 @@
 {
 	"name": "toriverkosto/woocommerce-aws-integration",
 	"description": "AWS Event Producer for WooCommerce",
-	"version": "1.0.4",
+	"version": "1.0.5",
 	"type": "wordpress-plugin",
 	"license": "GPLv3",
 	"authors": [

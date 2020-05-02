@@ -5,7 +5,7 @@ Donate link: https://github.com/anttiviljami
 Requires at least: 4.7
 Tested up to: 5.4
 Requires PHP: 7.1
-Stable tag: 1.0.4
+Stable tag: 1.0.5
 License: GPLv3
 License URI: https://github.com/Toriverkosto/woocommerce-aws-integration/blob/master/LICENSE
 
