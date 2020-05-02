@@ -12,6 +12,8 @@ class Plugin {
 		if ( class_exists( '\WC_Integration' ) ) {
 			include_once 'Hooks.php';
 			include_once 'GenericEvent.php';
+			include_once 'SNSEvent.php';
+			include_once 'SQSEvent.php';
 
 			$hooks = new Hooks( array( $this, 'publish' ) );
 

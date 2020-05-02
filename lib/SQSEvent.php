@@ -59,7 +59,8 @@ class SQSEvent implements IEvent {
 		);
 		$get_queue_url_opts = apply_filters( 'sqs_get_queue_url_opts', $get_queue_url_opts, $target, $event, $data );
 		try {
-			$queue_url = $this->client->getQueueUrl( $get_queue_url_opts );
+			$res = $this->client->getQueueUrl( $get_queue_url_opts );
+			$queue_url = $res['QueueUrl'];
 		} catch ( AWSException $e ) {
 			error_log( $e->getMessage() );
 			return;

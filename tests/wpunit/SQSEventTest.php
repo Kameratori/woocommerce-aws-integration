@@ -33,7 +33,7 @@ class SQSEventTest extends \Codeception\TestCase\WPTestCase
 		$mock = spy(SqsClient::class);
 		$mock->shouldReceive('getQueueUrl')
 			->with([ 'QueueOwnerAWSAccountId' => '123', 'QueueName' => 'TestQueue'])
-			->andReturn($queue_url);
+			->andReturn([ 'QueueUrl' => $queue_url ]);
 
 		// when
 		$snsEvent = new SQSEvent($target, $event, $data);
