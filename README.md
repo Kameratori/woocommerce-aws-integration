@@ -1,11 +1,20 @@
-# AWS SNS Producer for WooCommerce
+# AWS Event Producer for WooCommerce
 
-[![CI](https://github.com/Toriverkosto/aws-sns-woocommerce/workflows/CI/badge.svg)](https://github.com/Toriverkosto/aws-sns-woocommerce/actions?query=workflow%3ACI)
+[![CI](https://github.com/Toriverkosto/woocommerce-aws-integration/workflows/CI/badge.svg)](https://github.com/Toriverkosto/woocommerce-aws-integration/actions?query=workflow%3ACI)
 [![License](https://img.shields.io/:license-gpl3-blue.svg)](https://github.com/anttiviljami/wp-safe-updates/blob/master/LICENSE)
 
-WordPress plugin to produce SNS events from WooCommerce hooks
+WooCommerce extension to publish events to AWS services from WooCommerce hooks.
 
-You can configure this plugin to publish metadata from any SNS Topic triggered by the following WooCommerce events:
+You can configure this plugin to publish your WooCommerce business events to any
+of the following AWS target resources using their ARN:
+
+- [x] SNS Topic
+- [x] SQS Queue
+- [ ] Kinesis Data Stream
+- [ ] Kinesis Delivery Stream
+- [ ] S3 Bucket
+
+The following events are currently supported out-of-the-box:
 
 - Order Paid
 - Order Shipped
@@ -15,6 +24,8 @@ You can configure this plugin to publish metadata from any SNS Topic triggered b
 - Product Shipped
 - Product Refunded
 
+## Why
+
 ## Installation
 
 Requirements:
@@ -23,16 +34,34 @@ Requirements:
 - WordPress >= 4.7
 - PHP >= 7.1
 
-1. Download and install the [latest release](https://github.com/Toriverkosto/aws-sns-woocommerce/releases) of this plugin.
+1. Download and install the [latest release](https://github.com/Toriverkosto/woocommerce-aws-integration/releases) of this plugin.
 
-1. Navigate to WooCommerce > Settings > Integration > AWS SNS Integration
+1. Navigate to WooCommerce > Settings > Integration > AWS Integration
 
 1. Input the ARNs for the SNS topics you want to publish events on
 
 1. If running outside of a native AWS environment, you'll also need to configure
-   IAM Access keys to be able to publish to AWS SNS Topics.
+   IAM Access keys to be able to publish to AWS Services.
 
 ![Settings page](assets/screenshot-1.png)
+
+## Configuration
+
+Each of the settings provided by this plugin can also be hard-coded by using
+PHP constants matching their label.
+
+Example `wp-config.php`:
+
+```php
+define( 'ARN_ORDER_PAID',        'arn:aws:sns:us-east-1:1234:MyTopic' );
+define( 'ARN_ORDER_SHIPPED',     'arn:aws:sqs:eu-west-1:1234:MyQueue' );
+define( 'ARN_ORDER_REFUNDED',    'arn:aws:firehose:eu-west-1:1234:deliverystream/MyStream' );
+define( 'ARN_PRODUCT_PUBLISHED', 'arn:aws:s3:::my-s3-bucket-1234' );
+
+define( 'AWS_ACCESS_KEY_ID',     'XXXX' );
+define( 'AWS_SECRET_ACCESS_KEY', 'XXXX' );
+define( 'AWS_REGION',            'eu-west-1' );
+```
 
 ## Development
 

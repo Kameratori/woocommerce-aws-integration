@@ -7,7 +7,7 @@ services:
       dockerfile: Dockerfile-php7.1
     image: wordpress-woocommerce-test
     volumes:
-      - .:/var/www/html/wp-content/plugins/aws-sns-woocommerce
+      - .:/var/www/html/wp-content/plugins/woocommerce-aws-integration
       - ./tests:/var/www/html/tests
       - ./.env.testing:/var/www/html/.env.testing
       - ./codeception.dist.yml:/var/www/html/codeception.dist.yml

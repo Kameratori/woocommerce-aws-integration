@@ -1,20 +1,28 @@
-=== AWS SNS Producer For WooCommerce ===
-Contributors: Zuige
-Tags: woocommerce, sns, aws, data
+=== AWS Event Producer for WooCommerce ===
+Contributors: Toriverkosto, Zuige
+Tags: woocommerce, s3, sns, sqs, firehose, stream, aws, data
 Donate link: https://github.com/anttiviljami
 Requires at least: 4.7
 Tested up to: 5.4
 Requires PHP: 7.1
 Stable tag: 1.0.4
 License: GPLv3
-License URI: https://github.com/Toriverkosto/aws-sns-woocommerce/blob/master/LICENSE
+License URI: https://github.com/Toriverkosto/woocommerce-aws-integration/blob/master/LICENSE
 
 == Description ==
 
-A WordPress plugin to produce SNS events from WooCommerce hooks.
+WooCommerce extension to publish events to AWS services from WooCommerce hooks.
 
-You can configure this plugin to publish metadata from any SNS Topic triggered
-by the following WooCommerce events:
+You can configure this plugin to publish your WooCommerce business events to any
+of the following AWS target services using their ARN:
+
+- SNS Topic
+- SQS Queue
+- Kinesis Data Stream
+- Kinesis Delivery Stream
+- S3 Bucket
+
+The following events are currently supported out-of-the-box:
 
 - Order Paid
 - Order Shipped
@@ -28,7 +36,7 @@ by the following WooCommerce events:
 
 Please contribute to this project on Github. Pull requests welcome!
 
-https://github.com/Toriverkosto/aws-sns-woocommerce
+https://github.com/Toriverkosto/woocommerce-aws-integration
 
 == Installation ==
 
@@ -55,7 +63,7 @@ None yet.
 == Changelog ==
 
 Commit log is available at
-https://github.com/Toriverkosto/aws-sns-woocommerce/commits/master
+https://github.com/Toriverkosto/woocommerce-aws-integration/commits/master
 
 == Upgrade Notice ==
 

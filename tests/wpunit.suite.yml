@@ -21,7 +21,5 @@ modules:
       title: "Test"
       plugins:
         - "woocommerce/woocommerce.php"
-        - "aws-sns-woocommerce/aws-sns-woocommerce.php"
       activatePlugins:
         - "woocommerce/woocommerce.php"
-        - "aws-sns-woocommerce/aws-sns-woocommerce.php"

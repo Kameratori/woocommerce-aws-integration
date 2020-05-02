@@ -1,6 +1,6 @@
 {
-	"name": "toriverkosto/aws-sns-woocommerce",
-	"description": "AWS SNS Producer for WooCommerce",
+	"name": "toriverkosto/woocommerce-aws-integration",
+	"description": "AWS Event Producer for WooCommerce",
 	"version": "1.0.4",
 	"type": "wordpress-plugin",
 	"license": "GPLv3",
@@ -15,7 +15,7 @@
 	},
 	"require-dev": {
 		"wp-coding-standards/wpcs": "^2.2",
-		"dealerdirect/phpcodesniffer-composer-installer": "^0.6.2",
+		"dealerdirect/phpcodesniffer-composer-installer": "*",
 		"phpcompatibility/php-compatibility": "*",
 		"phpcompatibility/phpcompatibility-wp": "*"
 	},
@@ -23,6 +23,6 @@
 		"lint": "vendor/bin/phpcs ./",
 		"dev": "./docker-setup.sh",
 		"test": "./docker-test.sh",
-		"package": "composer install --no-dev && zip -r aws-sns-woocommerce.zip . -x '*.git*'"
+		"package": "composer install --no-dev && zip -r woocommerce-aws-integration.zip . -x '*.git*'"
 	}
 }

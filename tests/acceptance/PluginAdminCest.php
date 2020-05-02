@@ -9,7 +9,7 @@ class PluginAdminCest
 		public function shouldBeActivated(AcceptanceTester $I)
 		{
 			// given
-			$plugin_slug = 'aws-sns-producer-for-woocommerce';
+			$plugin_slug = 'aws-event-producer-for-woocommerce';
 			$I->loginAsAdmin();
 			$I->amOnAdminPage('/');
 
@@ -31,6 +31,6 @@ class PluginAdminCest
 			$I->amOnAdminPage('/admin.php?page=wc-settings&tab=integration');
 
 			// then
-			$I->see('AWS SNS Integration');
+			$I->see('AWS Integration');
 		}
 }

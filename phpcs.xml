@@ -44,7 +44,7 @@
 
 	<rule ref="WordPress.WP.I18n">
 		<properties>
-			<property name="text_domain" type="array" value="aws-sns-woocommerce" />
+			<property name="text_domain" type="array" value="woocommerce-aws-integration" />
 		</properties>
 	</rule>
 </ruleset>

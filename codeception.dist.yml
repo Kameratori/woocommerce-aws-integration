@@ -20,6 +20,6 @@ coverage:
   enabled: true
   show_uncovered: true
   include:
-    - wp-content/plugins/aws-sns-woocommerce/lib/*
+    - wp-content/plugins/woocommerce-aws-integration/lib/*
 params:
   - .env.testing

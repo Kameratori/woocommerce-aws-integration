@@ -1,13 +1,13 @@
 <?php
 /**
- * Plugin name: AWS SNS Producer for WooCommerce
- * Plugin URI: https://github.com/Toriverkosto/aws-sns-woocommerce
- * Description: WordPress plugin to produce SNS events from WooCommerce hooks
+ * Plugin name: AWS Event Producer for WooCommerce
+ * Plugin URI: https://github.com/Toriverkosto/woocommerce-aws-integration
+ * Description: WooCommerce extension to publish events to AWS services from WooCommerce hooks
  * Version: 1.0.4
- * Author: @anttiviljami
- * Author: https://github.com/anttiviljami
+ * Author: Toriverkosto
+ * Author: https://github.com/Toriverkosto
  * License: GPLv3
- * Text Domain: aws-sns-woocommerce
+ * Text Domain: woocommerce-aws-integration
  *
  * Copyright 2020 Viljami Kuosmanen
  *
@@ -26,4 +26,4 @@
  */
 
 require __DIR__ . '/vendor/autoload.php';
-require __DIR__ . '/lib/plugin.php';
+require __DIR__ . '/lib/Plugin.php';

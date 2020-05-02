@@ -49,7 +49,7 @@ docker-compose exec -T wordpress wp option set woocommerce_setup_ab_wc_admin_onb
 docker-compose exec -T wordpress wp transient delete-all
 
 echo "Activating plugin..."
-docker-compose exec -T wordpress wp plugin activate aws-sns-woocommerce
+docker-compose exec -T wordpress wp plugin activate woocommerce-aws-integration
 
 echo "Creating database dump..."
 docker-compose exec -T wordpress wp db dump tests/_data/dump.sql
