@@ -32,6 +32,8 @@ class SQSEvent implements IEvent {
 				'secret' => $this->settings->get_option( 'aws_secret_access_key' ),
 			);
 		}
+		$client_opts = apply_filters( 'sqs_client_opts', $client_opts );
+
 		$this->client = new SqsClient( $client_opts );
 	}
 
@@ -44,23 +46,32 @@ class SQSEvent implements IEvent {
 			'event' => $event,
 			'data'  => $data,
 		);
-		$payload = apply_filters( 'sns_publish_event', $payload, $target, $event );
-		$payload = apply_filters( 'sns_publish_event_' . $event, $payload, $target, $event );
 
-		$target = apply_filters( 'sns_publish_event_topic', $target, $event, $payload );
-		$target = apply_filters( 'sns_publish_event_' . $event . '_topic', $target, $event, $payload );
+		$payload = apply_filters( 'sqs_publish_event', $payload, $target, $event, $data );
+		$target  = apply_filters( 'sqs_publish_event_queue', $target, $event, $data );
 
 		// arn format: arn:aws:sqs:<region>:<AccountId>:<QueueName>
 		$arn_parts = explode( ':', $target );
+
+		$get_queue_url_opts = array(
+			'QueueOwnerAWSAccountId' => $arn_parts[4],
+			'QueueName'              => $arn_parts[5],
+		);
+		$get_queue_url_opts = apply_filters( 'sqs_get_queue_url_opts', $get_queue_url_opts, $target, $event, $data );
 		try {
-			$queue_url = $this->client->getQueueUrl(array(
-				'QueueOwnerAWSAccountId' => $arn_parts[4],
-				'QueueName'              => $arn_parts[5],
-			));
-			$this->client->sendMessage(array(
-				'MessageBody' => wp_json_encode( $payload ),
-				'QueueUrl'    => $queue_url,
-			));
+			$queue_url = $this->client->getQueueUrl( $get_queue_url_opts );
+		} catch ( AWSException $e ) {
+			error_log( $e->getMessage() );
+			return;
+		}
+
+		$send_message_opts = array(
+			'MessageBody' => wp_json_encode( $payload ),
+			'QueueUrl'    => $queue_url,
+		);
+		$send_message_opts = apply_filters( 'sqs_send_message_opts', $send_message_opts, $target, $event, $data );
+		try {
+			$this->client->sendMessage( $send_message_opts );
 		} catch ( AWSException $e ) {
 			error_log( $e->getMessage() );
 		}

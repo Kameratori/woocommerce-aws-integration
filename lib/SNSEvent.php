@@ -32,6 +32,8 @@ class SNSEvent implements IEvent {
 				'secret' => $this->settings->get_option( 'aws_secret_access_key' ),
 			);
 		}
+		$client_opts = apply_filters( 'sns_client_opts', $client_opts );
+
 		$this->client = new SnsClient( $client_opts );
 	}
 
@@ -44,17 +46,18 @@ class SNSEvent implements IEvent {
 			'event' => $event,
 			'data'  => $data,
 		);
-		$payload = apply_filters( 'sns_publish_event', $payload, $target, $event );
-		$payload = apply_filters( 'sns_publish_event_' . $event, $payload, $target, $event );
 
-		$target = apply_filters( 'sns_publish_event_topic', $target, $event, $payload );
-		$target = apply_filters( 'sns_publish_event_' . $event . '_topic', $target, $event, $payload );
+		$payload = apply_filters( 'sns_publish_event', $payload, $target, $event, $data );
+		$target  = apply_filters( 'sns_publish_event_topic', $target, $event, $data );
+
+		$publish_opts = array(
+			'Message'  => wp_json_encode( $payload ),
+			'TopicArn' => $target,
+		);
+		$publish_opts = apply_filters( 'sns_publish_opts', $publish_opts, $target, $event, $data );
 
 		try {
-			$this->client->publish(array(
-				'Message'  => wp_json_encode( $payload ),
-				'TopicArn' => $target,
-			));
+			$this->client->publish( $publish_opts );
 		} catch ( AWSException $e ) {
 			error_log( $e->getMessage() );
 		}
