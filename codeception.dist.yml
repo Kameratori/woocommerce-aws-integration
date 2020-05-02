@@ -23,3 +23,5 @@ coverage:
     - wp-content/plugins/woocommerce-aws-integration/lib/*
 params:
   - .env.testing
+settings:
+  backup_globals: true
