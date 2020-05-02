@@ -49,6 +49,10 @@ Requirements:
 - WordPress >= 4.7
 - PHP >= 7.1
 
+```
+composer require toriverkosto/woocommerce-aws-integration
+```
+
 1. Download and install the [latest release](https://github.com/Toriverkosto/woocommerce-aws-integration/releases) of this plugin.
 
 1. Navigate to WooCommerce > Settings > Integration > AWS Integration
