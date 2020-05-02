@@ -94,7 +94,7 @@ class Settings extends \WC_Integration {
 			),
 			'aws_secret_access_key' => array(
 				'title'             => self::$setting_constants['aws_secret_access_key'],
-				'type'              => 'text',
+				'type'              => 'password',
 				'description'       => __( 'IAM Access Key Secret', 'woocommerce-aws-integration' ),
 				'desc_tip'          => true,
 				'placeholder'       => '<secret key>',
