@@ -38,10 +38,10 @@ Requirements:
 
 1. Navigate to WooCommerce > Settings > Integration > AWS Integration
 
-1. Input the ARNs for the SNS topics you want to publish events on
+1. Input the ARNs for the AWS resources you want to publish events to
 
 1. If running outside of a native AWS environment, you'll also need to configure
-   IAM Access keys to be able to publish to AWS Services.
+   IAM Access keys to be able to access AWS services.
 
 ![Settings page](assets/screenshot-1.png)
 
