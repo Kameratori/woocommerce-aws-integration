@@ -11,20 +11,18 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        DOCKERFILE:
-          - Dockerfile # latest php version
-          - Dockerfile-php7.1
-        WC_VERSION:
+        VERSIONS:
           - WP_VERSION=latest
-          - WC_VERSION=3.5.7
-          - WC_VERSION=3.1.2
+          - WP_VERSION=5.3 WC_VERSION=4.0.1
+          - WP_VERSION=4.9 WC_VERSION=3.5.7
+          - WP_VERSION=4.7 WC_VERSION=3.1.2
     steps:
       - uses: actions/checkout@v1
       - uses: php-actions/composer@v1
-      - run: cp -v ${{ matrix.DOCKERFILE }} Dockerfile
-        if: matrix.DOCKERFILE != 'Dockerfile'
+      - run: cp -v Dockerfile-php7.1 Dockerfile # use old php version
+        if: contains(matrix.VERSIONS, 'WP_VERSION=4')
       - run: composer run lint
-      - run: ${{ matrix.WC_VERSION }} composer run dev
+      - run: ${{ matrix.VERSIONS }} composer run dev
       - run: composer run test
       - uses: actions/upload-artifact@v1
         if: failure()
