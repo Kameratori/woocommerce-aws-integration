@@ -10,8 +10,8 @@ of the following AWS target resources using their ARN:
 
 - [x] SNS Topic
 - [x] SQS Queue
-- [ ] Kinesis Data Stream
-- [ ] Kinesis Delivery Stream
+- [x] Kinesis Data Stream
+- [x] Firehose Delivery Stream
 - [ ] S3 Bucket
 
 The following events are currently supported out-of-the-box:

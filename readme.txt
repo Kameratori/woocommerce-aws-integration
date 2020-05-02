@@ -19,7 +19,7 @@ of the following AWS target services using their ARN:
 - SNS Topic
 - SQS Queue
 - Kinesis Data Stream
-- Kinesis Delivery Stream
+- Firehose Delivery Stream
 - S3 Bucket
 
 The following events are currently supported out-of-the-box:

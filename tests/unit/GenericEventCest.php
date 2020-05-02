@@ -5,6 +5,8 @@ require_once 'wp-content/plugins/woocommerce-aws-integration/lib/GenericEvent.ph
 use AWSWooCommerce\GenericEvent;
 use AWSWooCommerce\SNSEvent;
 use AWSWooCommerce\SQSEvent;
+use AWSWooCommerce\KinesisEvent;
+use AWSWooCommerce\FirehoseEvent;
 
 /**
  * @runTestsInSeparateProcesses
@@ -22,7 +24,7 @@ class GenericEventCest
 			\Mockery::close();
 	}
 
-	public function shouldPublishSNSEventWithSNSTargetARN(UnitTester $I)
+	public function shouldPublishSNSEventWithSNSTopicTargetARN(UnitTester $I)
 	{
 		// given
 		$class = SNSEvent::class;
@@ -40,12 +42,48 @@ class GenericEventCest
 		$I->assertEquals($res, $target);
 	}
 
-	public function shouldPublishSQSEventWithSQSTargetARN(UnitTester $I)
+	public function shouldPublishSQSEventWithSQSQueueTargetARN(UnitTester $I)
 	{
 		// given
 		$class = SQSEvent::class;
 		$event = 'test_event';
 		$target = 'arn:aws:sqs:us-east-1:123:TestQueue';
+		$data = [ 'test' => 'data' ];
+		$mock = mock('overload:' . $class)->makePartial();
+		$mock->shouldReceive('publish')->once()->andReturn($target);
+
+		// when
+		$e = new GenericEvent($target, $event, $data);
+		$res = $e->publish();
+
+		// then
+		$I->assertEquals($res, $target);
+	}
+
+	public function shouldPublishKinesisEventWithKinesisStreamTargetARN(UnitTester $I)
+	{
+		// given
+		$class = KinesisEvent::class;
+		$event = 'test_event';
+		$target = 'arn:aws:kinesis:us-east-1:123:stream/TestStream';
+		$data = [ 'test' => 'data' ];
+		$mock = mock('overload:' . $class)->makePartial();
+		$mock->shouldReceive('publish')->once()->andReturn($target);
+
+		// when
+		$e = new GenericEvent($target, $event, $data);
+		$res = $e->publish();
+
+		// then
+		$I->assertEquals($res, $target);
+	}
+
+	public function shouldPublishFirehoseEventWithFirehoseDeliveryStreamTargetARN(UnitTester $I)
+	{
+		// given
+		$class = FirehoseEvent::class;
+		$event = 'test_event';
+		$target = 'arn:aws:firehose:us-east-1:123:deliverystream/TestStream';
 		$data = [ 'test' => 'data' ];
 		$mock = mock('overload:' . $class)->makePartial();
 		$mock->shouldReceive('publish')->once()->andReturn($target);

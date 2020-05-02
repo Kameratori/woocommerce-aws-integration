@@ -6,7 +6,6 @@ use AWSWooCommerce\IEvent;
 use AWSWooCommerce\Settings;
 
 use Aws\Sqs\SqsClient; 
-use Aws\Sns\AWSException; 
 
 class SQSEvent implements IEvent {
 	public $target;
@@ -21,7 +20,7 @@ class SQSEvent implements IEvent {
 		// load configuration
 		$this->settings = Settings::instance();
 
-		// initialize SNS client
+		// initialize client
 		$client_opts = array(
 			'version' => '2012-11-05',
 			'region'  => $this->settings->get_option( 'aws_region', 'us-east-1' ),
@@ -61,7 +60,7 @@ class SQSEvent implements IEvent {
 		try {
 			$res = $this->client->getQueueUrl( $get_queue_url_opts );
 			$queue_url = $res['QueueUrl'];
-		} catch ( AWSException $e ) {
+		} catch ( Exception $e ) {
 			error_log( $e->getMessage() );
 			return;
 		}
@@ -73,7 +72,7 @@ class SQSEvent implements IEvent {
 		$send_message_opts = apply_filters( 'sqs_send_message_opts', $send_message_opts, $target, $event, $data );
 		try {
 			$this->client->sendMessage( $send_message_opts );
-		} catch ( AWSException $e ) {
+		} catch ( Exception $e ) {
 			error_log( $e->getMessage() );
 		}
 	}

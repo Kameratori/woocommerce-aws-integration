@@ -14,6 +14,8 @@ class Plugin {
 			include_once 'GenericEvent.php';
 			include_once 'SNSEvent.php';
 			include_once 'SQSEvent.php';
+			include_once 'KinesisEvent.php';
+			include_once 'FirehoseEvent.php';
 
 			$hooks = new Hooks( array( $this, 'publish' ) );
 

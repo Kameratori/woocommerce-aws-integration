@@ -29,5 +29,17 @@ class GenericEvent implements IEvent {
 			$event = new SQSEvent( $target, $event, $data );
 			return $event->publish();
 		}
+
+		// Kinesis data stream
+		if ( strpos( $target, 'arn:aws:kinesis' ) === 0 ) {
+			$event = new KinesisEvent( $target, $event, $data );
+			return $event->publish();
+		}
+
+		// Firehose data stream
+		if ( strpos( $target, 'arn:aws:firehose' ) === 0 ) {
+			$event = new FirehoseEvent( $target, $event, $data );
+			return $event->publish();
+		}
 	}
 }
