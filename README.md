@@ -1,4 +1,4 @@
-# AWS Event Producer for WooCommerce
+# AWS Integration for WooCommerce
 
 [![CI](https://github.com/Toriverkosto/woocommerce-aws-integration/workflows/CI/badge.svg)](https://github.com/Toriverkosto/woocommerce-aws-integration/actions?query=workflow%3ACI)
 [![Release](https://img.shields.io/github/v/release/Toriverkosto/woocommerce-aws-integration?sort=semver)](https://github.com/Toriverkosto/woocommerce-aws-integration/releases)
