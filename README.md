@@ -12,7 +12,7 @@ of the following AWS target resources using their ARN:
 - [x] SQS Queue
 - [x] Kinesis Data Stream
 - [x] Firehose Delivery Stream
-- [ ] S3 Bucket
+- [x] S3 Bucket
 
 The following events are currently supported out-of-the-box:
 
@@ -25,6 +25,19 @@ The following events are currently supported out-of-the-box:
 - Product Refunded
 
 ## Why
+
+This extension unlocks the power of the AWS ecosystem for your WooCommerce
+store by pushing your important business events to AWS services.
+
+Some example use cases:
+
+- Send a notification with SNS for new orders
+- Run custom Lambda functions for order events
+- Query your order data using Athena and S3
+- Analyze and visualize your store data using QuickSight
+- Create a delivery queue for digital products using SQS
+- Synchronize orders and product inventory to backend systems
+- Archive your store order history to S3
 
 ## Installation
 

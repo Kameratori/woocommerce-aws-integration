@@ -5,7 +5,7 @@ Donate link: https://github.com/anttiviljami
 Requires at least: 4.7
 Tested up to: 5.4
 Requires PHP: 7.1
-Stable tag: 1.1.0
+Stable tag: 1.2.0
 License: GPLv3
 License URI: https://github.com/Toriverkosto/woocommerce-aws-integration/blob/master/LICENSE
 
@@ -32,6 +32,21 @@ The following events are currently supported out-of-the-box:
 - Product Shipped
 - Product Refunded
 
+**Why**
+
+This extension unlocks the power of the AWS ecosystem for your WooCommerce
+store by pushing your important business events to AWS services.
+
+Some example use cases:
+
+- Send a notification with SNS for new orders
+- Run custom Lambda functions for order events
+- Query your order data using Athena and S3
+- Analyze and visualize your store data using QuickSight
+- Create a delivery queue for digital products using SQS
+- Synchronize orders and product inventory to backend systems
+- Archive your store order history to S3
+
 **Contributing**
 
 Please contribute to this project on Github. Pull requests welcome!
@@ -48,9 +63,9 @@ Requirements:
 
 1. Install the latest version of this plugin and activate it.
 2. Navigate to WooCommerce > Settings > Integration > AWS SNS Integration
-3. Input the ARNs for the SNS topics you want to publish events on
+3. Input the ARNs for the AWS resources you want to publish events to
 4. If running outside of the AWS environment, you'll also need to configure IAM
-Access keys
+Access keys to be able to access AWS Services
 
 == Frequently Asked Questions ==
 

@@ -3,7 +3,7 @@
  * Plugin name: AWS Event Producer for WooCommerce
  * Plugin URI: https://github.com/Toriverkosto/woocommerce-aws-integration
  * Description: WooCommerce extension to publish events to AWS services from WooCommerce hooks
- * Version: 1.1.0
+ * Version: 1.2.0
  * Author: Toriverkosto
  * Author: https://github.com/Toriverkosto
  * License: GPLv3
