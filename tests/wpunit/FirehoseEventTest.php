@@ -38,7 +38,7 @@ class FirehoseEventTest extends \Codeception\TestCase\WPTestCase
 
 		// then
 		$mock->shouldHaveReceived('putRecord')->with(\Mockery::on(function ($opts) use($stream, $data, $event) {
-			$data = wp_json_encode([ 'event' => $event, 'data' => $data ]);
+			$data = wp_json_encode(array_merge([ 'event' => $event ], $data ));
 			return $opts['DeliveryStreamName'] === $stream && $opts['Record']['Data'] === $data;
 		}))->once();
 	}

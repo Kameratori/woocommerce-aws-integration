@@ -37,7 +37,7 @@ class SNSEventTest extends \Codeception\TestCase\WPTestCase
 
 		// then
 		$mock->shouldHaveReceived('publish')->with(\Mockery::on(function ($opts) use($target, $data, $event) {
-			$message = wp_json_encode([ 'event' => $event, 'data' => $data ]);
+			$message = wp_json_encode(array_merge([ 'event' => $event ], $data ));
 			return $opts['TopicArn'] === $target && $opts['Message'] === $message;
 		}))->once();
 	}

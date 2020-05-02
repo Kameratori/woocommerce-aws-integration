@@ -42,7 +42,7 @@ class SQSEventTest extends \Codeception\TestCase\WPTestCase
 
 		// then
 		$mock->shouldHaveReceived('sendMessage')->with(\Mockery::on(function ($opts) use($queue_url, $data, $event) {
-			$message = wp_json_encode([ 'event' => $event, 'data' => $data ]);
+			$message = wp_json_encode(array_merge([ 'event' => $event ], $data ));
 			return $opts['QueueUrl'] === $queue_url && $opts['MessageBody'] === $message;
 		}))->once();
 	}

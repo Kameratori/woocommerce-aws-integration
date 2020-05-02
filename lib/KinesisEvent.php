@@ -41,9 +41,9 @@ class KinesisEvent implements IEvent {
 		$event  = $this->event;
 		$data   = $this->data;
 
-		$payload = array(
-			'event' => $event,
-			'data'  => $data,
+		$payload = array_merge(
+			array( 'event' => $event ),
+			$data,
 		);
 
 		$payload = apply_filters( 'kinesis_publish_event', $payload, $target, $event, $data );
