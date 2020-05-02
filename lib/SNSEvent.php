@@ -11,11 +11,13 @@ class SNSEvent implements IEvent {
 	public $target;
 	public $event;
 	public $data;
+	public $timestamp;
 
-	public function __construct( $target, $event, $data ) {
-		$this->target = $target;
-		$this->event  = $event;
-		$this->data   = $data;
+	public function __construct( $target, $event, $data, $timestamp ) {
+		$this->target    = $target;
+		$this->event     = $event;
+		$this->data      = $data;
+		$this->timestamp = $timestamp;
 
 		// load configuration
 		$this->settings = Settings::instance();
@@ -37,27 +39,29 @@ class SNSEvent implements IEvent {
 	}
 
 	public function publish() {
-		$target = $this->target;
-		$event  = $this->event;
-		$data   = $this->data;
+		$target    = $this->target;
+		$event     = $this->event;
+		$data      = $this->data;
+		$timestamp = $this->timestamp;
 
 		$payload = array_merge(
 			array( 'event' => $event ),
+			array( 'timestamp' => $timestamp ),
 			$data,
 		);
 
-		$payload = apply_filters( 'sns_publish_event', $payload, $target, $event, $data );
-		$target  = apply_filters( 'sns_publish_event_topic', $target, $event, $data );
+		$payload = apply_filters( 'sns_publish_event', $payload, $target, $event, $data, $timestamp );
+		$target  = apply_filters( 'sns_publish_event_topic', $target, $event, $data, $timestamp );
 
 		$publish_opts = array(
 			'Message'  => wp_json_encode( $payload ),
 			'TopicArn' => $target,
 		);
-		$publish_opts = apply_filters( 'sns_publish_opts', $publish_opts, $target, $event, $data );
+		$publish_opts = apply_filters( 'sns_publish_opts', $publish_opts, $target, $event, $data, $timestamp );
 
 		try {
 			$this->client->publish( $publish_opts );
-		} catch ( Exception $e ) {
+		} catch ( \Exception $e ) {
 			error_log( $e->getMessage() );
 		}
 	}

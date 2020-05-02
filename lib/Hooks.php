@@ -96,7 +96,7 @@ class Hooks {
 	private function publish( $target, $event, $data ) {
 		try {
 			call_user_func( $this->publish, $target, $event, $data );
-		} catch ( Exception $e ) {
+		} catch ( \Exception $e ) {
 			error_log( $e );
 		}
 	}

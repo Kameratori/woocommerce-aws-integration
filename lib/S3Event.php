@@ -5,9 +5,9 @@ require_once 'IEvent.php';
 use AWSWooCommerce\IEvent;
 use AWSWooCommerce\Settings;
 
-use Aws\Firehose\FirehoseClient; 
+use Aws\S3\S3Client; 
 
-class FirehoseEvent implements IEvent {
+class S3Event implements IEvent {
 	public $target;
 	public $event;
 	public $data;
@@ -24,7 +24,7 @@ class FirehoseEvent implements IEvent {
 
 		// initialize client
 		$client_opts = array(
-			'version' => '2015-08-04',
+			'version' => '2006-03-01',
 			'region'  => $this->settings->get_option( 'aws_region', 'us-east-1' ),
 		);
 		if ( $this->settings->get_option( 'aws_access_key_id' ) && $this->settings->get_option( 'aws_secret_access_key' ) ) {
@@ -33,9 +33,9 @@ class FirehoseEvent implements IEvent {
 				'secret' => $this->settings->get_option( 'aws_secret_access_key' ),
 			);
 		}
-		$client_opts = apply_filters( 'firehose_client_opts', $client_opts );
+		$client_opts = apply_filters( 's3_client_opts', $client_opts );
 
-		$this->client = new FirehoseClient( $client_opts );
+		$this->client = new S3Client( $client_opts );
 	}
 
 	public function publish() {
@@ -50,21 +50,31 @@ class FirehoseEvent implements IEvent {
 			$data,
 		);
 
-		$payload = apply_filters( 'firehose_publish_event', $payload, $target, $event, $data, $timestamp );
-		$target  = apply_filters( 'firehose_publish_event_topic', $target, $event, $data, $timestamp );
+		$payload = apply_filters( 's3_publish_event', $payload, $target, $event, $data, $timestamp );
+		$target  = apply_filters( 's3_publish_event_bucket', $target, $event, $data, $timestamp );
 
-		// arn format: arn:aws:firehose:<region>:<AccountId>:deliverystream/<DeliveryStreamName>
-		$arn_parts = explode( '/', $target );
+		// arn format: arn:aws:s3:::<Bucket>/<Key>
+		$arn_parts  = explode( ':', $target );
+		$bucket_key = explode( '/', $arn_parts[5] );
 
-		$put_record_opts = array(
-			'DeliveryStreamName' => $arn_parts[1],
-			'Record'             => array(
-				'Data' => wp_json_encode( $payload ),
-			),
+		$bucket = $bucket_key[0];
+		$key    = isset( $bucket_key[1] ) ? trailingslashit( $bucket_key[1] ) : '';
+
+		$datetime = \DateTime::createFromFormat( 'Y-m-d\TH:i:s+', $timestamp );
+		$hash     = substr( sha1( wp_json_encode( $payload ) ), 0, 8 );
+
+		$key .= $event
+			. '/' . $datetime->format( 'Y/m/d' ) . '/'
+			. $datetime->format( 'Y-m-d-H-i-s' ) . '-' . $hash . '.json';
+
+		$put_object_opts = array(
+			'Bucket' => $bucket,
+			'Key'    => $key,
+			'Body'   => wp_json_encode( $payload ),
 		);
-		$put_record_opts = apply_filters( 'firehose_put_record_opts', $put_record_opts, $target, $event, $data, $timestamp );
+		$put_object_opts = apply_filters( 's3_put_object_opts', $put_object_opts, $target, $event, $data, $timestamp );
 		try {
-			$this->client->putRecord( $put_record_opts );
+			$this->client->putObject( $put_object_opts );
 		} catch ( \Exception $e ) {
 			error_log( $e->getMessage() );
 		}

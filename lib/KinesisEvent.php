@@ -11,11 +11,13 @@ class KinesisEvent implements IEvent {
 	public $target;
 	public $event;
 	public $data;
+	public $timestamp;
 
-	public function __construct( $target, $event, $data ) {
-		$this->target = $target;
-		$this->event  = $event;
-		$this->data   = $data;
+	public function __construct( $target, $event, $data, $timestamp ) {
+		$this->target    = $target;
+		$this->event     = $event;
+		$this->data      = $data;
+		$this->timestamp = $timestamp;
 
 		// load configuration
 		$this->settings = Settings::instance();
@@ -37,17 +39,19 @@ class KinesisEvent implements IEvent {
 	}
 
 	public function publish() {
-		$target = $this->target;
-		$event  = $this->event;
-		$data   = $this->data;
+		$target    = $this->target;
+		$event     = $this->event;
+		$data      = $this->data;
+		$timestamp = $this->timestamp;
 
 		$payload = array_merge(
 			array( 'event' => $event ),
+			array( 'timestamp' => $timestamp ),
 			$data,
 		);
 
-		$payload = apply_filters( 'kinesis_publish_event', $payload, $target, $event, $data );
-		$target  = apply_filters( 'kinesis_publish_event_topic', $target, $event, $data );
+		$payload = apply_filters( 'kinesis_publish_event', $payload, $target, $event, $data, $timestamp );
+		$target  = apply_filters( 'kinesis_publish_event_topic', $target, $event, $data, $timestamp );
 
 		// arn format: arn:aws:kinesis:<region>:<AccountId>:stream/<StreamName>
 		$arn_parts = explode( '/', $target );
@@ -57,10 +61,10 @@ class KinesisEvent implements IEvent {
 			'Data'         => wp_json_encode( $payload ),
 			'PartitionKey' => 'default',
 		);
-		$put_record_opts = apply_filters( 'kinesis_put_record_opts', $put_record_opts, $target, $event, $data );
+		$put_record_opts = apply_filters( 'kinesis_put_record_opts', $put_record_opts, $target, $event, $data, $timestamp );
 		try {
 			$this->client->putRecord( $put_record_opts );
-		} catch ( Exception $e ) {
+		} catch ( \Exception $e ) {
 			error_log( $e->getMessage() );
 		}
 	}

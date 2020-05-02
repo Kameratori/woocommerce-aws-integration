@@ -16,6 +16,7 @@ class Plugin {
 			include_once 'SQSEvent.php';
 			include_once 'KinesisEvent.php';
 			include_once 'FirehoseEvent.php';
+			include_once 'S3Event.php';
 
 			$hooks = new Hooks( array( $this, 'publish' ) );
 
@@ -24,17 +25,15 @@ class Plugin {
 		}
 	}
 
-	public function publish( $target, $event, $data ) {
-		$target = apply_filters( 'aws_publish_event_target', $target, $event, $data );
-		$target = apply_filters( 'aws_publish_event_' . $event . 'target', $target, $event, $data );
+	public function publish( $target, $event, $data, $timestamp = null ) {
+		$target = apply_filters( 'aws_publish_event_target', $target, $event, $data, $timestamp );
+		$event  = apply_filters( 'aws_publish_event_name', $event, $target, $data, $timestamp );
+		$data   = apply_filters( 'aws_publish_event_data', $data, $target, $event, $timestamp );
 
-		$event = apply_filters( 'aws_publish_event', $event, $target, $data );
-		$event = apply_filters( 'aws_publish_event_' . $event, $event, $target, $data );
+		$timestamp = isset( $timestamp ) ? $timestamp : gmdate( 'c' );
+		$timestamp = apply_filters( 'aws_publish_event_timestamp', $timestamp, $target, $event, $data );
 
-		$data = apply_filters( 'aws_publish_event_data', $data, $target, $event );
-		$data = apply_filters( 'aws_publish_event_' . $event . '_data', $data, $target, $event );
-
-		$e = new GenericEvent( $target, $event, $data );
+		$e = new GenericEvent( $target, $event, $data, $timestamp );
 		$e->publish();
 	}
 

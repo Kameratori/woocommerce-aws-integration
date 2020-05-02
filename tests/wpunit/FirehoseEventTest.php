@@ -29,16 +29,21 @@ class FirehoseEventTest extends \Codeception\TestCase\WPTestCase
 		$stream = 'MyStream';
 		$target = 'arn:aws:firehose:eu-west-1:123:deliverystream/' . $stream;
 		$data = [ 'test' => 'data' ];
+		$timestamp = '2020-05-02T17:27:33+00:00';
 		$mock = spy(FirehoseClient::class);
 
 		// when
-		$firehoseEvent = new FirehoseEvent($target, $event, $data);
+		$firehoseEvent = new FirehoseEvent($target, $event, $data, $timestamp);
 		$firehoseEvent->client = $mock;
 		$firehoseEvent->publish();
 
 		// then
-		$mock->shouldHaveReceived('putRecord')->with(\Mockery::on(function ($opts) use($stream, $data, $event) {
-			$data = wp_json_encode(array_merge([ 'event' => $event ], $data ));
+		$mock->shouldHaveReceived('putRecord')->with(\Mockery::on(function ($opts) use($stream, $data, $event, $timestamp) {
+			$data = wp_json_encode(array_merge(
+				[ 'event' => $event ],
+				[ 'timestamp' => $timestamp ],
+				$data,
+			));
 			return $opts['DeliveryStreamName'] === $stream && $opts['Record']['Data'] === $data;
 		}))->once();
 	}
