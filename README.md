@@ -2,6 +2,7 @@
 
 [![CI](https://github.com/Toriverkosto/woocommerce-aws-integration/workflows/CI/badge.svg)](https://github.com/Toriverkosto/woocommerce-aws-integration/actions?query=workflow%3ACI)
 [![Release](https://img.shields.io/github/v/release/Toriverkosto/woocommerce-aws-integration?sort=semver)](https://github.com/Toriverkosto/woocommerce-aws-integration/releases)
+[![Packagist](https://img.shields.io/packagist/v/toriverkosto/woocommerce-aws-integration?color=orange)](https://packagist.org/packages/toriverkosto/woocommerce-aws-integration)
 [![License](https://img.shields.io/:license-gpl3-blue.svg)](https://github.com/anttiviljami/wp-safe-updates/blob/master/LICENSE)
 
 WooCommerce extension to publish events to AWS services from WooCommerce hooks.
