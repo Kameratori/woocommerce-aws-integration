@@ -3,7 +3,7 @@
  * Plugin name: AWS Integration for WooCommerce
  * Plugin URI: https://github.com/Toriverkosto/woocommerce-aws-integration
  * Description: WooCommerce extension to publish events to AWS services from WooCommerce hooks
- * Version: 1.2.3
+ * Version: 1.2.4
  * Author: Toriverkosto
  * Author URI: https://github.com/Toriverkosto
  * License: GPLv3

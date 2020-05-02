@@ -1,7 +1,7 @@
 {
 	"name": "toriverkosto/woocommerce-aws-integration",
 	"description": "AWS Integration for WooCommerce",
-	"version": "1.2.3",
+	"version": "1.2.4",
 	"type": "wordpress-plugin",
 	"license": "GPL-3.0-or-later",
 	"authors": [
