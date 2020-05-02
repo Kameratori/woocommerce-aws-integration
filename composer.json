@@ -3,7 +3,7 @@
 	"description": "AWS Event Producer for WooCommerce",
 	"version": "1.2.0",
 	"type": "wordpress-plugin",
-	"license": "GPLv3",
+	"license": "GPL-3.0-or-later",
 	"authors": [
 		{
 			"name": "Viljami Kuosmanen",
