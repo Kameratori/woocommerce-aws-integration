@@ -51,7 +51,7 @@ class FirehoseEvent implements IEvent {
 		);
 
 		$payload = apply_filters( 'firehose_publish_event', $payload, $target, $event, $data, $timestamp );
-		$target  = apply_filters( 'firehose_publish_event_topic', $target, $event, $data, $timestamp );
+		$target  = apply_filters( 'firehose_publish_event_arn', $target, $event, $data, $timestamp );
 
 		// arn format: arn:aws:firehose:<region>:<AccountId>:deliverystream/<DeliveryStreamName>
 		$arn_parts = explode( '/', $target );

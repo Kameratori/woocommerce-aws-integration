@@ -51,7 +51,7 @@ class S3Event implements IEvent {
 		);
 
 		$payload = apply_filters( 's3_publish_event', $payload, $target, $event, $data, $timestamp );
-		$target  = apply_filters( 's3_publish_event_bucket', $target, $event, $data, $timestamp );
+		$target  = apply_filters( 's3_publish_event_arn', $target, $event, $data, $timestamp );
 
 		// arn format: arn:aws:s3:::<Bucket>/<Key>
 		$arn_parts  = explode( ':', $target );

@@ -51,7 +51,7 @@ class SQSEvent implements IEvent {
 		);
 
 		$payload = apply_filters( 'sqs_publish_event', $payload, $target, $event, $data, $timestamp );
-		$target  = apply_filters( 'sqs_publish_event_queue', $target, $event, $data, $timestamp );
+		$target  = apply_filters( 'sqs_publish_event_arn', $target, $event, $data, $timestamp );
 
 		// arn format: arn:aws:sqs:<region>:<AccountId>:<QueueName>
 		$arn_parts = explode( ':', $target );

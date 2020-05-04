@@ -51,7 +51,7 @@ class KinesisEvent implements IEvent {
 		);
 
 		$payload = apply_filters( 'kinesis_publish_event', $payload, $target, $event, $data, $timestamp );
-		$target  = apply_filters( 'kinesis_publish_event_topic', $target, $event, $data, $timestamp );
+		$target  = apply_filters( 'kinesis_publish_event_arn', $target, $event, $data, $timestamp );
 
 		// arn format: arn:aws:kinesis:<region>:<AccountId>:stream/<StreamName>
 		$arn_parts = explode( '/', $target );

@@ -51,7 +51,7 @@ class SNSEvent implements IEvent {
 		);
 
 		$payload = apply_filters( 'sns_publish_event', $payload, $target, $event, $data, $timestamp );
-		$target  = apply_filters( 'sns_publish_event_topic', $target, $event, $data, $timestamp );
+		$target  = apply_filters( 'sns_publish_event_arn', $target, $event, $data, $timestamp );
 
 		$publish_opts = array(
 			'Message'  => wp_json_encode( $payload ),
