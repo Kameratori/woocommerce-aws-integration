@@ -16,7 +16,7 @@ class Hooks {
 		add_action( 'woocommerce_order_status_processing', array( $this, 'order_paid' ), 100, 2 );
 		add_action( 'woocommerce_order_status_completed', array( $this, 'order_shipped' ), 100, 2 );
 		add_action( 'woocommerce_order_status_refunded', array( $this, 'order_refunded' ), 100, 2 );
-		add_action( 'woocommerce_order_status_rma_processing', array( $this, 'order_rma_processing'), 100, 2 );
+		add_action( 'woocommerce_order_status_rma_processing', array( $this, 'order_rma_processing' ), 100, 2 );
 	}
 
 	public function maybe_product_published( $new_status, $old_status, $post ) {
