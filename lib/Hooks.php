@@ -96,14 +96,14 @@ class Hooks {
 
 	public function order_rma_processing( $order_id, $order ) {
 		$event  = 'order_rma_processing';
-		$target = $this->settings->get_option( 'arn_rma_processing' );
+		$target = $this->settings->get_option( 'arn_order_rma_processing' );
 		if ( $target ) {
 			$this->publish( $target, $event, $order->get_data() );
 		}
 
 		// loop through products in order
 		$event  = 'product_rma_processing';
-		$target = $this->settings->get_option( 'arn_product_refunded' );
+		$target = $this->settings->get_option( 'arn_product_rma_processing' );
 		$items  = $order->get_items( 'line_item' );
 		if ( $target ) {
 			foreach ( $items as $item ) {
