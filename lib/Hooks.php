@@ -16,6 +16,7 @@ class Hooks {
 		add_action( 'woocommerce_order_status_processing', array( $this, 'order_paid' ), 100, 2 );
 		add_action( 'woocommerce_order_status_completed', array( $this, 'order_shipped' ), 100, 2 );
 		add_action( 'woocommerce_order_status_refunded', array( $this, 'order_refunded' ), 100, 2 );
+		add_action( 'woocommerce_order_status_rma_processing', array( $this, 'order_rma_processing'), 100, 2 );
 	}
 
 	public function maybe_product_published( $new_status, $old_status, $post ) {
@@ -26,7 +27,7 @@ class Hooks {
 		if ( $new_status !== 'publish' || $old_status === 'publish' ) {
 			return;
 		}
-		
+
 		$event  = 'product_published';
 		$target = $this->settings->get_option( 'arn_product_published' );
 		if ( $target ) {
@@ -82,6 +83,26 @@ class Hooks {
 
 		// loop through products in order
 		$event  = 'product_refunded';
+		$target = $this->settings->get_option( 'arn_product_refunded' );
+		$items  = $order->get_items( 'line_item' );
+		if ( $target ) {
+			foreach ( $items as $item ) {
+				$product = $item->get_product();
+				$data    = array_merge( $item->get_data(), $product->get_data() );
+				$this->publish( $target, $event, $data );
+			}
+		}
+	}
+
+	public function order_rma_processing( $order_id, $order ) {
+		$event  = 'order_rma_processing';
+		$target = $this->settings->get_option( 'arn_rma_processing' );
+		if ( $target ) {
+			$this->publish( $target, $event, $order->get_data() );
+		}
+
+		// loop through products in order
+		$event  = 'product_rma_processing';
 		$target = $this->settings->get_option( 'arn_product_refunded' );
 		$items  = $order->get_items( 'line_item' );
 		if ( $target ) {

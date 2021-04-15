@@ -26,6 +26,9 @@ The following events are currently supported out-of-the-box:
 - Product Shipped
 - Product Refunded
 
+Custom Status change
+- Order RMA Processing
+
 ## Why
 
 This extension unlocks the power of the AWS ecosystem for your WooCommerce
