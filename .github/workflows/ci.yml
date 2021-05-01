@@ -19,7 +19,7 @@ jobs:
     steps:
       - uses: actions/checkout@v1
       - uses: php-actions/composer@v1
-      - run: cp -v Dockerfile-php7.1 Dockerfile # use old php version
+      - run: cp -v Dockerfile-php7.4 Dockerfile # use old php version
         if: contains(matrix.VERSIONS, 'WP_VERSION=4')
       - run: composer run lint
       - run: ${{ matrix.VERSIONS }} composer run dev
