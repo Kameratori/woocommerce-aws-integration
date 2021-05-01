@@ -8,12 +8,11 @@ class Settings extends \WC_Integration {
 		'arn_order_paid'        => 'ARN_ORDER_PAID',
 		'arn_order_shipped'     => 'ARN_ORDER_SHIPPED',
 		'arn_order_refunded'    => 'ARN_ORDER_REFUNDED',
-		'arn_order_rma_processing'  => 'ARN_ORDER_RMA_PROCESSING',
+		'arn_order_rmaprocessing'  => 'ARN_ORDER_RMAPROCESSING',
 		'arn_product_published' => 'ARN_PRODUCT_PUBLISHED',
 		'arn_product_sold'      => 'ARN_PRODUCT_SOLD',
 		'arn_product_shipped'   => 'ARN_PRODUCT_SHIPPED',
 		'arn_product_refunded'  => 'ARN_PRODUCT_REFUNDED',
-		'arn_product_rma_processing'  => 'ARN_PRODUCT_RMA_PROCESSING',
 	);
 
 	public function __construct() {
@@ -53,14 +52,6 @@ class Settings extends \WC_Integration {
 				'placeholder'       => 'arn:aws:sns:us-east-1:1234:MyTopic',
 				'custom_attributes' => $this->readonly_if_defined( self::$setting_constants['arn_order_refunded'] ),
 			),
-			'arn_order_rma_processing'    => array(
-				'title'             => self::$setting_constants['arn_order_rma_processing'],
-				'type'              => 'text',
-				'description'       => __( 'ARN to publish when an order rma is processing', 'woocommerce-aws-integration' ),
-				'desc_tip'          => true,
-				'placeholder'       => 'arn:aws:sns:us-east-1:1234:MyTopic',
-				'custom_attributes' => $this->readonly_if_defined( self::$setting_constants['arn_order_rma_processing'] ),
-			),
 			'arn_product_published' => array(
 				'title'             => self::$setting_constants['arn_product_published'],
 				'type'              => 'text',
@@ -93,13 +84,13 @@ class Settings extends \WC_Integration {
 				'placeholder'       => 'arn:aws:sns:us-east-1:1234:MyTopic',
 				'custom_attributes' => $this->readonly_if_defined( self::$setting_constants['arn_product_refunded'] ),
 			),
-			'arn_product_rma_processing'    => array(
-				'title'             => self::$setting_constants['arn_product_rma_processing'],
+			'arn_order_rmaprocessing'  => array(
+				'title'             => self::$setting_constants['arn_order_rmaprocessing'],
 				'type'              => 'text',
-				'description'       => __( 'ARN to publish when a product rma is processing', 'woocommerce-aws-integration' ),
+				'description'       => __( 'ARN to publish when order rma is processing', 'woocommerce-aws-integration' ),
 				'desc_tip'          => true,
 				'placeholder'       => 'arn:aws:sns:us-east-1:1234:MyTopic',
-				'custom_attributes' => $this->readonly_if_defined( self::$setting_constants['arn_product_rma_processing'] ),
+				'custom_attributes' => $this->readonly_if_defined( self::$setting_constants['arn_order_rmaprocessing'] ),
 			),
 
 			'aws_access_key_id'     => array(
